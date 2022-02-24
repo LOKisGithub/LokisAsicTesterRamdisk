@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+</head>
+
+<body>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"> <a href="" class="active nav-link" data-toggle="pill" data-target="#tabone"><i class="fa fa-home">&nbsp;Overview</i><br></a> </li>
+            <li class="nav-item"> <a class="nav-link" href="" data-toggle="pill" data-target="#tabtwo"><i class="fa fa-bed">&nbsp;Testoutput</i></a> </li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="pill" data-target="#tabthree"><i class="fa fa-key">&nbsp;Password</i><br></a> </li>
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+              <p class="">Welcome to Lokis Antminer Tester, you can find the Testoutput in the next Tab</p>
+            </div>
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+              <a class="btn btn-primary" href="tester.log"><i class="fa fa-download fa-fw"></i>&nbsp;Download log&nbsp;</a><a class="btn btn-primary" href="#"><i class="fa fa-fw fa-play"></i>&nbsp;Start Test&nbsp;</a><a class="btn btn-primary" href="#"><i class="fa fa-fw fa-trash"></i>&nbsp;Clear log&nbsp;</a>
+              <div class="form-group"><label>Testeroutput</label><textarea class="form-control" id="form35" rows="3" name="syslog"></textarea></div>
+            </div>
+            <div class="tab-pane fade" id="tabthree" role="tabpanel">
+              <p class="">When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface.</p>
+              <form class="" action="/cgi-bin/passwd.cgi">
+                <div class="form-group"> <label>Current Password</label> <input type="password" class="form-control" placeholder="Current Password" id="current_pw" name="current_pw"> </div>
+                <div class="form-group"> <label>New Password</label> <input type="password" class="form-control" placeholder="New Password" name="new_pw" id="new_pw"> </div>
+                <div class="form-group"> <label>Confirmation</label> <input type="password" class="form-control" placeholder="Confirmation Password" name="new_pw_ctrl" id="new_pw_ctrl"> </div> <button type="submit" class="btn btn-primary" id="Save&amp;Apply">Save&amp;Apply</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

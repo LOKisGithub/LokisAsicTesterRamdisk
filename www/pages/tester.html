@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="cache-control" content="no-cache" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/cascade.css" />
+<!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/css/ie6.css" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/css/ie7.css" /><![endif]-->
+<!--[if IE 8]><link rel="stylesheet" type="text/css" media="screen" href="/css/ie8.css" /><![endif]-->
+<script type="text/javascript" src="/js/xhr.js"></script>
+<script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/js/json2.min.js"></script>
+<script>
+var offset,
+  timer,
+  pre,
+  scrolling = true;
+
+// Check every 200msec for fresh data
+var interval = 200;
+
+// Function that asks the API for new data
+function reloadData() {
+  clearTimeout(timer);
+
+  f_get_kernel_log();
+
+  if (scrolling) {
+      pre.scrollTop(pre[0].scrollHeight);
+  }
+
+  timer = setTimeout(reloadData, interval);
+}
+
+function f_list_boot() {
+
+  $.ajax({
+    url:'/cgi-bin/list_boots.cgi',
+    type:'GET',
+    dataType: 'text',
+    success: function( data ) {
+        var HTML = ""; 
+        var json = JSON.parse(data);
+        $.each(json, function(i, value) { 
+           if (!HTML.includes("<option>"+value+"</option>")) { 
+              HTML = HTML+"<option>"+value+"</option>";
+           } else {
+              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
+           } 
+        });
+        $('#selectBoot').append(HTML); 
+    }
+  });
+}
+
+function f_list_devicetree() {
+
+  $.ajax({
+    url:'/cgi-bin/list_devicetree.cgi',
+    type:'GET',
+    dataType: 'text',
+    success: function( data ) {
+        var HTML = ""; 
+        var json = JSON.parse(data);
+        $.each(json, function(i, value) { 
+           if (!HTML.includes("<option>"+value+"</option>")) { 
+              HTML = HTML+"<option>"+value+"</option>";
+           } else {
+              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
+           } 
+        });
+        $('#selectDevicetree').append(HTML); 
+    }
+  });
+}
+
+function f_list_configs() {
+
+  $.ajax({
+    url:'/cgi-bin/list_configs.cgi',
+    type:'GET',
+    dataType: 'text',
+    success: function( data ) {
+        var HTML = ""; 
+        var json = JSON.parse(data);
+        $.each(json, function(i, value) { 
+           if (!HTML.includes("<option>"+value+"</option>")) { 
+              HTML = HTML+"<option>"+value+"</option>";
+           } else {
+              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
+           } 
+        });
+        $('#selectCfg').append(HTML); 
+    }
+  });
+}
+
+function f_list_testtools() {
+
+  $.ajax({
+    url:'/cgi-bin/list_testtools.cgi',
+    type:'GET',
+    dataType: 'text',
+    success: function( data ) {
+        var HTML = ""; 
+        var json = JSON.parse(data);
+        $.each(json, function(i, value) { 
+           if (!HTML.includes("<option>"+value+"</option>")) { 
+              HTML = HTML+"<option>"+value+"</option>";
+           } else {
+              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
+           } 
+        });
+        $('#selectTools').append(HTML); 
+    }
+  });
+}
+
+function f_get_kernel_log() {
+	$.ajax({
+		url: '/cgi-bin/get_test_log.cgi',
+		type: 'GET',
+		dataType: 'text',
+		timeout: 30000,
+		cache: false,
+		success: function(data) {
+			$("#syslog").val(data);
+		},
+		error: function() {
+			//alert('Ajax Error');
+		}
+	});
+}
+
+function f_submit_pressTestButton() {	
+	$.ajax({
+		url: '/cgi-bin/testButton.cgi',
+		type: 'GET',
+		dataType: 'json',
+		timeout: 30000,
+		cache: false,
+		data: {},
+		success: function(data) {
+		},
+		error: function() {
+		}
+	});
+}
+
+function f_submit_changeConfig() {	
+	$.ajax({
+		url: '/cgi-bin/changeConfig.cgi',
+		type: 'GET',
+		dataType: 'json',
+		timeout: 30000,
+		cache: false,
+		data: {},
+		success: function(data) {
+		},
+		error: function() {
+		}
+	});
+}
+
+function f_submit_changeFW() {	
+	$.ajax({
+		url: '/cgi-bin/changeFW.cgi',
+		type: 'GET',
+		dataType: 'json',
+		timeout: 30000,
+		cache: false,
+		data: {},
+		success: function(data) {
+		},
+		error: function() {
+		}
+	});
+}
+
+function f_submit_clearTestLog() {	
+	$.ajax({
+		url: '/cgi-bin/clear_test_log.cgi',
+		type: 'GET',
+		dataType: 'json',
+		timeout: 30000,
+		cache: false,
+		data: {},
+		success: function(data) {
+		},
+		error: function() {
+		}
+	});
+}
+
+$(document).ready(function() {
+   f_list_configs();
+   f_list_testtools();
+   f_list_boot();
+   f_list_devicetree();
+   pre = $("#syslog"); 
+        // Trigger function that looks for new data
+        reloadData();
+});
+
+</script>
+<title>LOKi's Asic Tester</title>
+</head>
+<body class="lang_en">
+	<p class="skiplink">
+		<span id="skiplink1"><a href="#navigation">Skip to navigation</a></span>
+		<span id="skiplink2"><a href="#content">Skip to content</a></span>
+	</p>
+	<div id="menubar">
+		<h2 class="navigation"><a id="navigation" name="navigation">Navigation</a></h2>
+		<div class="clear"></div>
+	</div>
+	<div id="menubar" style="background-color: #0a2b40;">
+		<div class="hostinfo" style="float: left; with: 500px;">
+			<img src="/images/antminer_logo.png" width="92" height="50" alt="" title="" border="0" />
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="maincontainer">
+		<div id="tabmenu">
+			<div class="tabmenu1">
+				<ul class="tabmenu l1">
+					<li class="tabmenu-item-status"><a href="/index.html">System</a></li>
+					<li class="tabmenu-item-system"><a href="/cgi-bin/minerConfiguration.cgi">Miner Configuration</a></li>
+					<li class="tabmenu-item-network"><a href="/cgi-bin/minerStatus.cgi">Miner Status</a></li>
+					<li class="tabmenu-item-system"><a href="/network.html">Network</a></li>
+					<li class="tabmenu-item-network active"><a href="/tester.html">Tester</a></li>
+				</ul>
+				<br style="clear: both" />
+				<div class="tabmenu2">
+					<ul class="tabmenu l2">
+						<li class="tabmenu-item-system"><a href="/tester.html">Testlog</a></li>
+						<li class="tabmenu-item-packages"><a href="/testKernelLog.html">Kernel Log</a></li>
+					</ul>
+					<br style="clear: both" />
+				</div>
+			</div>
+		</div>
+		<div id="maincontent">
+			<noscript>
+				<div class="errorbox">
+					<strong>Java Script required!</strong><br /> You must enable Java Script in your browser or LuCI will not work properly.
+				</div>
+			</noscript>
+			<h2 style="padding-bottom:10px;"><a id="content" name="content" href=tester.log download>Testlog (download)</a></h2>
+			<p>
+				<input class="cbi-button cbi-button-apply left" type="button" onclick="f_submit_pressTestButton();" value="Start Test" />
+				<input class="cbi-button cbi-button-remove left" type="button" onclick="f_submit_clearTestLog();" value="Clear Testlog" />
+<div>
+    <input type="checkbox" checked id="chk1" onclick="scrolling=this.checked">
+    <label for="chk1">Automatic scrolling on update</label>
+</div>
+				<form action="/cgi-bin/changeConfig.cgi">
+					<select name="selectCfg" id="selectCfg"></select>
+					<select name="selectTools" id="selectTools"></select>
+					<input class="cbi-button cbi-button-save left" type="submit" value="Apply config" />
+				</form>  
+				<form action="/cgi-bin/changeFW.cgi">
+					<select name="selectBoot" id="selectBoot"></select>
+					<select name="selectDevicetree" id="selectDevicetree"></select>
+					<input class="cbi-button cbi-button-save left" type="submit" value="Apply & reboot" />
+				</form>  
+			</p>
+
+			<div id="content_syslog">
+				<textarea readonly="readonly" wrap="off" id="syslog" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>	
+	</div>
+	<div class="clear"></div>
+	<div style="text-align: center; bottom: 0; left: 0; height: 1.5em; font-size: 80%; margin: 0; padding: 5px 0px 2px 8px; background-color: #918ca0; width: 100%;">
+		<font style="color:#fff;">Copyright &copy; 2022, LOKi</font>
+	</div>
+</body>
+</html>
+
