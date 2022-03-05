@@ -55,27 +55,6 @@ function f_list_boot() {
   });
 }
 
-function f_list_devicetree() {
-
-  $.ajax({
-    url:'/cgi-bin/list_devicetree.cgi',
-    type:'GET',
-    dataType: 'text',
-    success: function( data ) {
-        var HTML = ""; 
-        var json = JSON.parse(data);
-        $.each(json, function(i, value) { 
-           if (!HTML.includes("<option>"+value+"</option>")) { 
-              HTML = HTML+"<option>"+value+"</option>";
-           } else {
-              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
-           } 
-        });
-        $('#selectDevicetree').append(HTML); 
-    }
-  });
-}
-
 function f_list_configs() {
 
   $.ajax({
@@ -198,10 +177,9 @@ $(document).ready(function() {
    f_list_configs();
    f_list_testtools();
    f_list_boot();
-   f_list_devicetree();
    pre = $("#syslog"); 
-        // Trigger function that looks for new data
-        reloadData();
+   // Trigger function that looks for new data
+   reloadData();
 });
 
 </script>
@@ -263,7 +241,6 @@ $(document).ready(function() {
 				</form>  
 				<form action="/cgi-bin/changeFW.cgi">
 					<select name="selectBoot" id="selectBoot"></select>
-					<select name="selectDevicetree" id="selectDevicetree"></select>
 					<input class="cbi-button cbi-button-save left" type="submit" value="Apply & reboot" />
 				</form>  
 			</p>

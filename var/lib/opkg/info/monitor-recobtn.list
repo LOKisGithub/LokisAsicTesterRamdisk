@@ -1,4 +1,0 @@
-/etc/rcS.d/S70monitor-recobtn
-/usr/bin/monitor-recobtn
-/usr/bin/factory_config_reset.sh
-/etc/init.d/monitor-recobtn

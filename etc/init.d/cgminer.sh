@@ -76,7 +76,7 @@ if [ ! -d /sys/class/gpio/gpio907 ]; then
 fi
 
 if [ ! -f /mnt/card/single-board-test ]; then
-	mount -t vfat /dev/mmcblk0p1 /mnt/card/
+	mount -t vfat /dev/mmcblk0p1 /mnt/card/ | tee -a /tmp/tester.log
 fi
 
 do_start() {
