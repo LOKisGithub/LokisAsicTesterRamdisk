@@ -26,7 +26,7 @@ done
 show_msg "Updating Config"
 sleep 1
 
-/mnt/card/changeConfig.sh $selectedCfg
-/mnt/card/changeTestTool.sh $selectedTool
+/mnt/card/scripts/changeConfig.sh $selectedCfg
+/mnt/card/scripts/changeTestTool.sh $selectedTool
 
 /etc/init.d/cgminer.sh restart

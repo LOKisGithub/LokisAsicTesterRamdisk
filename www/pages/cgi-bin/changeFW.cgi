@@ -23,7 +23,7 @@ done
 show_msg "Updating FW"
 sleep 1
 
-/mnt/card/changeBoot.sh $selectedBoot
+/mnt/card/scripts/changeBoot.sh $selectedBoot
 
 cp /tmp/tester.log /mnt/card/logs/
 

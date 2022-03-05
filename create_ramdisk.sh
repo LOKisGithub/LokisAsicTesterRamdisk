@@ -18,6 +18,7 @@ gunzip ramdisk.image.gz
 mount -o loop ramdisk.image /mnt/tmp
 
 cp -r etc /mnt/tmp/
+rm -rf /mnt/tmp/www/pages/*
 cp -r www /mnt/tmp/
 ln -s /tmp/tester.log /mnt/tmp/www/pages/tester.log
 

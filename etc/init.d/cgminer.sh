@@ -124,20 +124,20 @@ do_start() {
 	sleep 5s
 	if [ -z  "`lsmod | grep bitmain_axi`"  ]; then
     	echo "No bitmain_axi.ko" | tee -a /tmp/tester.log
-    	insmod /mnt/card/bitmain_axi.ko
-	    insmod /mnt/card/lcd12864I_driver.ko
+    	insmod /mnt/card/modules/bitmain_axi.ko
+	    insmod /mnt/card/modules/lcd12864I_driver.ko
     	
     	memory_size=`awk '/MemTotal/{total=$2}END{print total}' /proc/meminfo`
     	echo memory_size = $memory_size | tee -a /tmp/tester.log                           
     	if [ $memory_size -gt 1000000 ]; then
         	echo "fpga_mem_offset_addr=0x3F000000" | tee -a /tmp/tester.log                            
-        	insmod /mnt/card/fpga_mem_driver.ko fpga_mem_offset_addr=0x3F000000
+        	insmod /mnt/card/modules/fpga_mem_driver.ko fpga_mem_offset_addr=0x3F000000
     	elif [ $memory_size -lt 1000000 -a  $memory_size -gt 400000 ]; then
         	echo "fpga_mem_offset_addr=0x1F000000" | tee -a /tmp/tester.log                                
-        	insmod /mnt/card/fpga_mem_driver.ko fpga_mem_offset_addr=0x1F000000
+        	insmod /mnt/card/modules/fpga_mem_driver.ko fpga_mem_offset_addr=0x1F000000
     	else
         	echo "fpga_mem_offset_addr=0x0F000000" | tee -a /tmp/tester.log                                
-        	insmod /mnt/card/fpga_mem_driver.ko fpga_mem_offset_addr=0x0F000000
+        	insmod /mnt/card/modules/fpga_mem_driver.ko fpga_mem_offset_addr=0x0F000000
     	fi
 	else
     	echo "Have bitmain-axi" | tee -a /tmp/tester.log                                                   
