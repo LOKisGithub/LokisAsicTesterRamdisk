@@ -67,11 +67,9 @@ function f_get_system_info() {
 				$("#ant_mem_cached").html(data.mem_cached+' kB / '+data.mem_total+' kB ('+percent+'%)');
 				
 				$("#ant_system_mode").html(data.system_mode);
-				hw_version = data.ant_hwv;
-				$("#ant_system_hardware_version").html(hw_version);
 				$("#ant_system_kernel_version").html(data.system_kernel_version);
 				$("#ant_system_filesystem_version").html(data.system_filesystem_version);
-				$("#ant_bmminer_version").html(data.cgminer_version);
+				$("#ant_version").html(data.version);
 			}
 			catch(err)
 			{
@@ -112,8 +110,8 @@ $(document).ready(function() {
 			<div class="tabmenu1">
 				<ul class="tabmenu l1">
 					<li class="tabmenu-item-status active"><a href="/index.html">System</a></li>
-					<li class="tabmenu-item-system"><a href="/cgi-bin/minerConfiguration.cgi">Miner Configuration</a></li>
-					<li class="tabmenu-item-network"><a href="/cgi-bin/minerStatus.cgi">Miner Status</a></li>
+<!--					<li class="tabmenu-item-system"><a href="/cgi-bin/minerConfiguration.cgi">Miner Configuration</a></li>
+					<li class="tabmenu-item-network"><a href="/cgi-bin/minerStatus.cgi">Miner Status</a></li>-->
 					<li class="tabmenu-item-system"><a href="/network.html">Network</a></li>
 					<li class="tabmenu-item-network"><a href="/tester.html">Tester</a></li>
 				</ul>
@@ -142,12 +140,12 @@ $(document).ready(function() {
 				<legend>System</legend>
 				<table width="100%" cellspacing="10">
 					<tr><td width="33%">Miner Type</td><td id="ant_minertype"></td></tr>
+					<tr><td width="33%">Version</td><td id="ant_version"></td></tr>
+					<tr><td width="33%"></td><td><a href="https://github.com/LOKisGithub/LokisAsicTester" target="new">https://github.com/LOKisGithub/LokisAsicTester</a></td></tr>
 					<tr><td width="33%">Hostname</td><td id="ant_hostname"></td></tr>
 					<tr><td width="33%">Model</td><td id="ant_system_mode"></td></tr>
-					<tr><td width="33%">Hardware Version</td><td id="ant_system_hardware_version"></td></tr>
 					<tr><td width="33%">Kernel Version</td><td id="ant_system_kernel_version"></td></tr>
 					<tr><td width="33%">File System Version</td><td id="ant_system_filesystem_version"></td></tr>
-					<tr><td width="33%">CGminer Version</td><td id="ant_bmminer_version"></td></tr>
 					<tr><td width="33%">Uptime</td><td id="ant_uptime"></td></tr>
 					<tr><td width="33%">Load Average</td><td id="ant_loadaverage"></td></tr>
 				</table>

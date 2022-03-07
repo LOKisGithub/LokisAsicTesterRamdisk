@@ -150,25 +150,11 @@ echo \"mem_free\":\"${ant_mem_free}\",
 echo \"mem_buffers\":\"${ant_mem_buffers}\",
 echo \"mem_cached\":\"${ant_mem_cached}\",
 
-ant_cgminer_version=`cgminer-api -o version`
-if [ "${ant_cgminer_version}" == "Socket connect failed: Connection refused" ]; then
-	ant_cgminer_version=
-else
-	ant_cgminer_version=${ant_cgminer_version#*CGMiner=}
-	ant_cgminer_version=${ant_cgminer_version%%,API=*}
-fi
-
-ant_hwv=x.x.x.x
-ant_hwv=`cgminer-api -o stats`
-if [ "${ant_hwv}" != "Socket connect failed: Connection refused" ]; then
-	ant_hwv=${ant_hwv#*,Miner=}
-	ant_hwv=${ant_hwv%%,CompileTime=*}
-	
-fi
+ant_version=`cat /mnt/card/version`
 
 ant_system_mode=`uname -o`
 ant_system_kernel_version=`uname -srv`
-#ant_system_filesystem_version=`cat /usr/bin/compile_time`
+
 ant_minertype=`sed -n 2p /usr/bin/compile_time`
 ant_system_filesystem_version=`sed -n 1p /usr/bin/compile_time`
 
@@ -176,6 +162,6 @@ echo \"system_mode\":\"${ant_system_mode}\",
 echo \"ant_hwv\":\"${ant_hwv}\",
 echo \"system_kernel_version\":\"${ant_system_kernel_version}\",
 echo \"system_filesystem_version\":\"${ant_system_filesystem_version}\", 
-echo \"cgminer_version\":\"${ant_cgminer_version}\"
+echo \"version\":\"${ant_version}\"
 
 echo }
