@@ -152,6 +152,16 @@ echo \"mem_cached\":\"${ant_mem_cached}\",
 
 ant_version=`cat /mnt/card/version`
 
+rm -rf /tmp/gitVersion
+curl -k -o /tmp/gitVersion https://raw.githubusercontent.com/LOKisGithub/LokisAsicTester/main/version
+ant_github_version=`cat /tmp/gitVersion`
+if cmp -s /tmp/gitVersion /mnt/card/version; then
+	ant_version_info=ant_version
+else
+	ant_version_info=`echo "New Version ("${ant_github_version}") available"`
+fi
+
+
 ant_system_mode=`uname -o`
 ant_system_kernel_version=`uname -srv`
 
@@ -162,6 +172,9 @@ echo \"system_mode\":\"${ant_system_mode}\",
 echo \"ant_hwv\":\"${ant_hwv}\",
 echo \"system_kernel_version\":\"${ant_system_kernel_version}\",
 echo \"system_filesystem_version\":\"${ant_system_filesystem_version}\", 
-echo \"version\":\"${ant_version}\"
+echo \"version\":\"${ant_version}\",
+echo \"version_info\":\"${ant_version_info}\",
+echo \"github_version\":\"${ant_github_version}\"
+
 
 echo }

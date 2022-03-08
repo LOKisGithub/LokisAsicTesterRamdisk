@@ -33,6 +33,10 @@ while read -r line; do
     test x"$line" = x"" && break
     test x"$line" = x"$CR" && break
 done
+while read -r line; do
+    test x"$line" = x"" && break
+    test x"$line" = x"$CR" && break
+done
 
 rm -rf /tmp/eeprom.bin
 cat - > /tmp/eeprom.bin

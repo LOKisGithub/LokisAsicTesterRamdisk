@@ -21,6 +21,7 @@ cp -r etc /mnt/tmp/
 rm -rf /mnt/tmp/www/pages/*
 cp -r www /mnt/tmp/
 ln -s /tmp/tester.log /mnt/tmp/www/pages/tester.log
+ln -s /tmp/eeprom.bin /mnt/tmp/www/pages/eeprom.bin
 
 umount /mnt/tmp
 gzip -v9 ramdisk.image

@@ -42,11 +42,15 @@ function f_eeprom_dump() {
 	$.ajax({
 		url: '/cgi-bin/eeprom_dump.cgi',
 		type: 'GET',
+		data : {
+			selectChain: $('#selectChain').val()
+		},
 		dataType: 'text',
 		timeout: 30000,
 		cache: false,
 		success: function(data) {
 			$("#syslog").val(data);
+ 			window.open("/eeprom.bin", '_blank');
 		},
 		error: function() {
 			//alert('Ajax Error');
@@ -84,6 +88,23 @@ function f_submit_write_eeprom() {
 
 $(document).ready(function() {
    f_list_eeprom();
+});
+
+$(function() {
+  $('form.write_eeprom_form').submit(function(event) {
+    event.preventDefault(); // Prevent the form from submitting via the browser
+    var form = $(this);
+    $.ajax({
+      type: form.attr('method'),
+      url: form.attr('action'),
+      data: form.serialize()
+    }).done(function(data) {
+	$("#syslog").val(data);      
+// Optionally alert the user of success here...
+    }).fail(function(data) {
+      // Optionally alert the user of an error here...
+    });
+  });
 });
 
 </script>
@@ -131,16 +152,16 @@ $(document).ready(function() {
 					<strong>Java Script required!</strong><br /> You must enable Java Script in your browser or LuCI will not work properly.
 				</div>
 			</noscript>
-			<h2 style="padding-bottom:10px;"><a id="content" name="content" href=tester.log download>Testlog (download)</a></h2>
+			<h1><font color=red>WARNING the functions here are highly experimental!</font></h1>
 			<p>
 				<form id="write_eeprom_form" name="write_eeprom_form" action="/cgi-bin/eeprom_write.cgi" enctype="multipart/form-data" method="post">
-					<select name="selectChain" id="selectChain"><option selected>0</option><option>1</option><option>2</option></select>
+					<select name="selectChain" id="selectChain"><option selected value=0>Chain 0</option><option value=1>Chain 1</option><option value=2>Chain 2</option></select>
 					<input type="file" name="datafile" />
 					<input class="cbi-button cbi-input-apply" type="button" onclick="f_submit_write_eeprom();" value="Write eeprom" />
 				</form>
 				<form action="/cgi-bin/eeprom_dump.cgi">
-					<select name="selectChain" id="selectChain"><option selected>0</option><option>1</option><option>2</option></select>
-					<input class="cbi-button cbi-button-save left" type="submit" value="Dump eeprom" />
+					<select name="selectChain" id="selectChain"><option selected value=0>Chain 0</option><option value=1>Chain 1</option><option value=2>Chain 2</option></select>
+					<input class="cbi-button cbi-button-save left" type="button" onclick="f_eeprom_dump();" value="Dump eeprom" />
 				</form>
 			</p>
 
