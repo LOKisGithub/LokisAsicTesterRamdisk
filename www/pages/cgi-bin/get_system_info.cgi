@@ -156,7 +156,7 @@ rm -rf /tmp/gitVersion
 curl -k -o /tmp/gitVersion https://raw.githubusercontent.com/LOKisGithub/LokisAsicTester/main/version
 ant_github_version=`cat /tmp/gitVersion`
 if cmp -s /tmp/gitVersion /mnt/card/version; then
-	ant_version_info=ant_version
+	ant_version_info=${ant_version}
 else
 	ant_version_info=`echo "New Version ("${ant_github_version}") available"`
 fi
@@ -174,7 +174,9 @@ echo \"system_kernel_version\":\"${ant_system_kernel_version}\",
 echo \"system_filesystem_version\":\"${ant_system_filesystem_version}\", 
 echo \"version\":\"${ant_version}\",
 echo \"version_info\":\"${ant_version_info}\",
-echo \"github_version\":\"${ant_github_version}\"
+echo \"github_version\":\"0x${ant_github_version}\",
 
+lat_fpga_version=`/mnt/card/utils/fpga_util.elf`
+echo \"fpga_version\":\"${lat_fpga_version}\"
 
 echo }

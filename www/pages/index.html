@@ -70,6 +70,7 @@ function f_get_system_info() {
 				$("#ant_system_kernel_version").html(data.system_kernel_version);
 				$("#ant_system_filesystem_version").html(data.system_filesystem_version);
 				$("#ant_version").html(data.version_info);
+				$("#lat_fpga_version").html(data.fpga_version);
 			}
 			catch(err)
 			{
@@ -145,6 +146,7 @@ $(document).ready(function() {
 					<tr><td width="33%">Hostname</td><td id="ant_hostname"></td></tr>
 					<tr><td width="33%">Model</td><td id="ant_system_mode"></td></tr>
 					<tr><td width="33%">Kernel Version</td><td id="ant_system_kernel_version"></td></tr>
+					<tr><td width="33%">FPGA Version</td><td id="lat_fpga_version"></td></tr>
 					<tr><td width="33%">File System Version</td><td id="ant_system_filesystem_version"></td></tr>
 					<tr><td width="33%">Uptime</td><td id="ant_uptime"></td></tr>
 					<tr><td width="33%">Load Average</td><td id="ant_loadaverage"></td></tr>

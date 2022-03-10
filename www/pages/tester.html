@@ -44,11 +44,13 @@ function f_list_boot() {
         var HTML = ""; 
         var json = JSON.parse(data);
         $.each(json, function(i, value) { 
-           if (!HTML.includes("<option>"+value+"</option>")) { 
-              HTML = HTML+"<option>"+value+"</option>";
-           } else {
-              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
-           } 
+			if (value != "dummy" && value != "none") {
+				if (!HTML.includes("<option>"+value+"</option>")) { 
+					HTML = HTML+"<option>"+value+"</option>";
+				} else {
+					HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
+				} 
+			}
         });
         $('#selectBoot').append(HTML); 
     }
@@ -65,11 +67,13 @@ function f_list_configs() {
         var HTML = ""; 
         var json = JSON.parse(data);
         $.each(json, function(i, value) { 
-           if (!HTML.includes("<option>"+value+"</option>")) { 
-              HTML = HTML+"<option>"+value+"</option>";
-           } else {
-              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
-           } 
+			if (value != "dummy" && value != "none") {
+				if (!HTML.includes("<option>"+value+"</option>")) { 
+					HTML = HTML+"<option>"+value+"</option>";
+				} else {
+					HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
+				} 
+			}
         });
         $('#selectCfg').append(HTML); 
     }
@@ -86,11 +90,13 @@ function f_list_testtools() {
         var HTML = ""; 
         var json = JSON.parse(data);
         $.each(json, function(i, value) { 
-           if (!HTML.includes("<option>"+value+"</option>")) { 
-              HTML = HTML+"<option>"+value+"</option>";
-           } else {
-              HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
-           } 
+			if (value != "dummy" && value != "none") {
+				if (!HTML.includes("<option>"+value+"</option>")) { 
+					HTML = HTML+"<option>"+value+"</option>";
+				} else {
+					HTML = HTML.replaceAll("<option>"+value+"</option>", "<option selected>"+value+"</option>");
+				} 
+			}
         });
         $('#selectTools').append(HTML); 
     }
@@ -173,6 +179,24 @@ function f_submit_clearTestLog() {
 	});
 }
 
+function f_changeAutoTest() {	
+	$.ajax({
+		url: '/cgi-bin/autotest.cgi',
+		type: 'GET',
+		dataType: 'json',
+		timeout: 30000,
+		cache: false,
+		data : {
+			chkAutotest: $('input#chkAutotest').prop('checked')
+		},
+		success: function(data) {
+			alert(data);
+		},
+		error: function() {
+		}
+	});
+}
+
 $(document).ready(function() {
    f_list_configs();
    f_list_testtools();
@@ -234,6 +258,10 @@ $(document).ready(function() {
 <div>
     <input type="checkbox" checked id="chk1" onclick="scrolling=this.checked">
     <label for="chk1">Automatic scrolling on update</label>
+</div>
+<div>
+    <input type="checkbox" id="chkAutotest" onclick="f_changeAutoTest();">
+    <label for="chkAutotest">Automatic testruns (loop)</label>	
 </div>
 				<form action="/cgi-bin/changeConfig.cgi">
 					<select name="selectCfg" id="selectCfg"></select>
