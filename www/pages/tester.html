@@ -150,18 +150,20 @@ function f_submit_changeConfig() {
 }
 
 function f_submit_changeFW() {	
-	$.ajax({
-		url: '/cgi-bin/changeFW.cgi',
-		type: 'GET',
-		dataType: 'json',
-		timeout: 30000,
-		cache: false,
-		data: {},
-		success: function(data) {
-		},
-		error: function() {
-		}
-	});
+	if(confirm('Are you sure you want to modify the bootloader and FPGA ?')) {
+		$.ajax({
+			url: '/cgi-bin/changeFW.cgi',
+			type: 'GET',
+			dataType: 'json',
+			timeout: 30000,
+			cache: false,
+			data: {},
+			success: function(data) {
+			},
+			error: function() {
+			}
+		});
+	}
 }
 
 function f_submit_clearTestLog() {	
@@ -258,8 +260,7 @@ $(document).ready(function() {
 <div>
     <input type="checkbox" checked id="chk1" onclick="scrolling=this.checked">
     <label for="chk1">Automatic scrolling on update</label>
-</div>
-<div>
+</div><div>
     <input type="checkbox" id="chkAutotest" onclick="f_changeAutoTest();">
     <label for="chkAutotest">Automatic testruns (loop)</label>	
 </div>

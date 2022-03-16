@@ -29,4 +29,4 @@ sleep 1
 /mnt/card/scripts/changeConfig.sh $selectedCfg
 /mnt/card/scripts/changeTestTool.sh $selectedTool
 
-/etc/init.d/cgminer.sh restart
+/etc/init.d/cgminer.sh restart > /dev/null
